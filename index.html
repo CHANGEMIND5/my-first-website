@@ -15,11 +15,20 @@
       p {
         font-size: 18px;
       }
+      @keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+.blinking-image {
+  animation: blink 1.5s infinite;
+}
     </style>
   </head>
   <body>
     <h1>Hello, World!</h1>
     <p>This is my pingping webpage built with HTML!</p>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxKkBmz5Ug6AuupT4Xibnl_piswfohdKNnLg&s" alt="샘플 이미지" />
+    <img class="blinking-image" scr="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxKkBmz5Ug6AuupT4Xibnl_piswfohdKNnLg&s" alt="샘플 이미지" />
   </body>
 </html>
