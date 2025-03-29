@@ -1,66 +1,107 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
-const data = [
-  { stage: "Tiered Structure", ICE: 90, EV: 60 },
-  { stage: "OEM Role", ICE: 70, EV: 90 },
-  { stage: "Battery Control", ICE: 20, EV: 95 },
-  { stage: "Supply Chain Centralization", ICE: 30, EV: 80 }
-];
-
-export default function EVValueChainPresentation() {
-  return (
-    <div className="grid gap-4 p-4">
-      <Card>
-        <CardContent className="p-6">
-          <h1 className="text-2xl font-bold mb-4">EV 시대의 유럽 값치 사셀 변화</h1>
-          <p className="text-base text-muted-foreground mb-2">
-            유럽 자동차 사업은 계층적(Tiered) 공급목 중심의 값치 사셀을 가지고 있었지만, EV 시대에 버튼의 중요성이 강해지면서 OEM의 역할과 직접 제조를 가장하는 것으로 변화치고 있어요.
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="p-6">
-          <h2 className="text-xl font-semibold mb-2">
-            값치 사셀 구조 비교: ICE vs EV
-          </h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data} layout="vertical" margin={{ left: 80 }}>
-              <XAxis type="number" domain={[0, 100]} />
-              <YAxis dataKey="stage" type="category" />
-              <Tooltip />
-              <Bar dataKey="ICE" fill="#8884d8" name="ICE Era" />
-              <Bar dataKey="EV" fill="#82ca9d" name="EV Era" />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="p-6">
-          <h2 className="text-xl font-semibold mb-4">
-            유럽 OEM의 버튼 개발 과 개자 생산 참여 활동
-          </h2>
-          <ul className="list-disc pl-6 space-y-1">
-            <li><strong>Volkswagen</strong>: PowerCo 개설, 유럽 자체 공장 6개 기획</li>
-            <li><strong>Mercedes-Benz</strong>: ACC 협력사 개발 확률</li>
-            <li><strong>BMW</strong>: 고체전지 R&D + 자체 생산 계획</li>
-            <li><strong>Renault</strong>: LGES걤0 협력공장 개설</li>
-          </ul>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="p-6">
-          <h2 className="text-xl font-semibold mb-4">
-            결론
-          </h2>
-          <p>
-            EV 시대는 값치 사셀의 분리 가능성을 허무롭게 해서, OEM이 가장 중요한 부품(배터리)에 대해 자체 개발, 제조, 공급 까지 직접 관여하는 “공연 시대”로 변화하고 있습니다. 이는 규칙 가정의 계층\uud615 값치 사셀의 가치가 남아있지 않을 수 있다는 것을 보조합니다.
-          </p>
-        </CardContent>
-      </Card>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Marketing Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background-color: #1e1e2f;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    .container {
+      display: flex;
+      flex: 1;
+      height: 100%;
+    }
+    .input-area, .output-area {
+      flex: 1;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .input-area {
+      background-color: #f7f7f7;
+    }
+    .output-area {
+      background-color: #e0e0f0;
+    }
+    textarea {
+      width: 100%;
+      height: 80%;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+    .response {
+      white-space: pre-wrap;
+      font-size: 1rem;
+      background-color: #ffffff;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🧠 AI Marketing Chatbot
+  </header>
+  <div class="container">
+    <div class="input-area">
+      <h2>Your Question</h2>
+      <textarea id="userInput" placeholder="Ask a marketing question..."></textarea>
+      <button onclick="sendToGPT()">Send</button>
     </div>
-  );
-}
+    <div class="output-area">
+      <h2>GPT Response</h2>
+      <div class="response" id="responseOutput">GPT's answer will appear here...</div>
+    </div>
+  </div>
+
+  <script>
+    async function sendToGPT() {
+      const input = document.getElementById('userInput').value;
+      const responseDiv = document.getElementById('responseOutput');
+      responseDiv.innerText = 'Loading...';
+
+      try {
+        const res = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': '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'
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [
+              { role: 'system', content: 'You are a helpful AI marketing assistant.' },
+              { role: 'user', content: input }
+            ]
+          })
+        });
+
+        const data = await res.json();
+        responseDiv.innerText = data.choices[0].message.content;
+      } catch (error) {
+        responseDiv.innerText = 'Error fetching GPT response.';
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>
