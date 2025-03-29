@@ -1,27 +1,66 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>My First Webpage</title>
-    <style>
-      body {
-        background-color: white;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin-top: 100px;
-        color: black;
-      }
+import { Card, CardContent } from "@/components/ui/card";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-      h1 {
-        font-size: 48px;
-      }
+const data = [
+  { stage: "Tiered Structure", ICE: 90, EV: 60 },
+  { stage: "OEM Role", ICE: 70, EV: 90 },
+  { stage: "Battery Control", ICE: 20, EV: 95 },
+  { stage: "Supply Chain Centralization", ICE: 30, EV: 80 }
+];
 
-      p {
-        font-size: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <p>This is my first webpage built with HTML.</p>
-  </body>
-</html>
+export default function EVValueChainPresentation() {
+  return (
+    <div className="grid gap-4 p-4">
+      <Card>
+        <CardContent className="p-6">
+          <h1 className="text-2xl font-bold mb-4">EV 시대의 유럽 값치 사셀 변화</h1>
+          <p className="text-base text-muted-foreground mb-2">
+            유럽 자동차 사업은 계층적(Tiered) 공급목 중심의 값치 사셀을 가지고 있었지만, EV 시대에 버튼의 중요성이 강해지면서 OEM의 역할과 직접 제조를 가장하는 것으로 변화치고 있어요.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-2">
+            값치 사셀 구조 비교: ICE vs EV
+          </h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data} layout="vertical" margin={{ left: 80 }}>
+              <XAxis type="number" domain={[0, 100]} />
+              <YAxis dataKey="stage" type="category" />
+              <Tooltip />
+              <Bar dataKey="ICE" fill="#8884d8" name="ICE Era" />
+              <Bar dataKey="EV" fill="#82ca9d" name="EV Era" />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-4">
+            유럽 OEM의 버튼 개발 과 개자 생산 참여 활동
+          </h2>
+          <ul className="list-disc pl-6 space-y-1">
+            <li><strong>Volkswagen</strong>: PowerCo 개설, 유럽 자체 공장 6개 기획</li>
+            <li><strong>Mercedes-Benz</strong>: ACC 협력사 개발 확률</li>
+            <li><strong>BMW</strong>: 고체전지 R&D + 자체 생산 계획</li>
+            <li><strong>Renault</strong>: LGES걤0 협력공장 개설</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-4">
+            결론
+          </h2>
+          <p>
+            EV 시대는 값치 사셀의 분리 가능성을 허무롭게 해서, OEM이 가장 중요한 부품(배터리)에 대해 자체 개발, 제조, 공급 까지 직접 관여하는 “공연 시대”로 변화하고 있습니다. 이는 규칙 가정의 계층\uud615 값치 사셀의 가치가 남아있지 않을 수 있다는 것을 보조합니다.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
